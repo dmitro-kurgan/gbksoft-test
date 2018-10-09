@@ -1,0 +1,249 @@
+include ../mixins
+
+doctype html
+html(lang="en")
+	head
+		title Title
+		meta(charset="UTF-8")
+		meta(name="viewport", content="initial-scale=1,width=device-width")
+		link(rel="stylesheet", href="./css/style.css")
+	body
+		main.main
+			.main__left
+				.sidebar
+					.hamburger
+						span.hamburger__top
+						span.hamburger__mid
+						span.hamburger__bottom
+					ul.sidebar__list
+						mixin list(className, name, active)
+							if active
+								li(class="sidebar__list-item " + active)
+									a(href="#")
+										+icon(className, className)
+										| #{name}
+									block
+							else
+								li(class="sidebar__list-item")
+									a(href="#")
+										+icon(className, className)
+										| #{name}
+									block
+						+list('aircraft', 'Aircraft', 'active')
+						+list('sales', 'Recent Sales')
+						+list('market', 'Market Updates')
+						+list('fmv', 'FMV')
+							ul.sidebar__list-dropdown
+								li.sidebar__list-item
+									a(href="#") Manage Prices
+								li.sidebar__list-item
+									a(href="#") Compare Costs
+					a(href="#").logout
+						+icon('logout', 'logout')
+						| Logout
+			.main__right
+				.content
+					.content__head
+						a(href="#").content__back
+					.content__main
+						.content__left
+							.content__box.content__box--title
+								h1.content__title
+									| MfgYear Make Model
+									br
+									| Serial Number
+								span.subj-status.subj-status--confirmed Confirmed
+								span.subj-status.subj-status--disabled Ghost
+								a(href="https://soljets.com", target="_blank").content__link Published to soljets.com
+							.content__box.content__box--list
+								ul.content__list
+									li.content__list-item
+										p.content__list-name Fair Market Value:
+										span.content__list-price
+											| $955,500
+									li.content__list-item
+										p.content__list-name Status:
+										span.content__list-status.content__list-status--sale
+											| For Sale
+									li.content__list-item
+										p.content__list-name Days on Market:
+										span
+											| 50
+									li.content__list-item
+										p.content__list-name Ask Price:
+										span.content__list-price
+											| $955,500
+										span.content__list-inc
+											| 11%
+									li.content__list-item
+										p.content__list-name Take Price:
+										span.content__list-price
+											| $955,500
+										span.content__list-dec
+											| 11%
+									li.content__list-item
+										p.content__list-name Brokerage:
+										span
+											| AvPro
+									li.content__list-item
+										p.content__list-name Damage:
+										span.content__list-low
+											| Low
+									li.content__list-item
+										p.content__list-name Pedigree:
+										span
+											| Medium
+									li.content__list-item.content__list-item--date
+										p.content__list-name Next Inspection:
+										div
+											span.content__list-date
+												| mm/dd/yy
+											span.content__list-type
+												| Inspection Type
+							.content__box.content__box--post
+								h2.content__title Aircraft Notes:
+								form.form
+									.form__group
+										textarea(placeholder="Press enter to post note...", class="form__control")
+										button.btn.btn--telegram
+											+icon('telegram', 'telegram')
+								ul.content__notes
+									mixin notes(text)
+										li.content__notes-item
+											span.content__notes-user mm/dd/yy by Cris S.
+											p.content__notes-text #{text}
+									+notes("Broker willing to take in the low 1's")
+									+notes("Broker willing to take in the low 1's")
+									+notes("Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud")
+						.content__right
+							ul.tabs-head
+								mixin li(name, active)
+									if active
+										li(class="tabs-head__item" + active)
+											a(href="#") #{name}
+									else
+										li(class="tabs-head__item")
+											a(href="#") #{name}
+								+li('Overview')
+								+li('Maintenance')
+								+li('Transactions')
+								+li('Utilization')
+								+li('History', ' active')
+							.tabs-body
+								form.form.form--add
+									.form__group
+										span.form__title Period
+										// CUSTOM SELECT
+										div(class="select-dropdown form__control")
+											.select-dropdown__val.select-dropdown__title Select
+											ul.select-dropdown__list
+												mixin option(value)
+													li.select-dropdown__item
+														a(href="#", data-value= value) #{value}
+														block
+												+option('3 Months')
+												+option('6 Months')
+												+option('1 Year')
+												+option('Custom')
+													// DATA PICKER
+													.data-picker
+														a(href="#").data-picker__btn-prev
+														a(href="#").data-picker__btn-next
+														.data-picker__main
+															.data-picker__prev
+																.data-picker__title
+																	p Jul 2018
+																table.data-picker__calendar
+																	thead
+																		mixin Months()
+																			tr
+																				th Su
+																				th Mo
+																				th Tu
+																				th We
+																				th Th
+																				th Fr
+																				th Su
+																		+Months()
+																	tbody
+																		- var i = 1;
+																		while i <= 28
+																			tr
+																				if i < 7
+																					td(class='data-picker__from') #{i++}
+																					- for (var n = 0; n < 5;n++) {
+																						td(class='data-picker__from-to') #{i++}
+																					- };
+																					td(class='data-picker__to') #{i++}
+																				else
+																					- for (var n = 0; n < 7;n++) {
+																						td #{i++}
+																					- };
+																		tr
+																			- var i = 29;
+																			while i <= 31
+																				td #{i++}
+																			- var i = 1;
+																			while i <= 4
+																				td(class="data-picker__out-month") #{i++}
+																				
+															.data-picker__next
+																.data-picker__title
+																	p Aug 2018
+																	a(href="#")
+																table.data-picker__calendar
+																	thead
+																		+Months()
+																	tbody
+																		- var i = 5;
+																		while i <= 25		
+																			tr
+																				- for (var n = 0; n < 7;n++) {
+																					td #{i++}
+																				- };
+																		tr
+																			- var i = 26;
+																			while i <= 31
+																				td #{i++}
+																			td(class="data-picker__out-month") 1
+																		tr
+																			- var i = 2;
+																			while i <= 8
+																				td(class="data-picker__out-month") #{i++}
+														.data-picker__form
+															.form__group
+																span.form__title From
+																.form__control(data-value="07/13/2018") 07/13/2018
+															.form__group
+																span.form__title To
+																.form__control(data-value="07/18/2018") 07/18/2018
+															.form__group
+																button.btn.btn--apply Apply
+															.form__group
+																button.btn.btn--cancel Cancel
+									.form__group
+										span.form__title Field Name
+										input(type="text", placeholder="Start typing...", class="form__control")
+									.form__group
+										button.btn.btn--apply Apply
+								table.table
+									thead.table__head
+										tr.table__tr
+											th.table__th Date
+											th.table__th Updated By
+											th.table__th Field Name
+											th.table__th Previous Value
+											th.table__th New Value
+									tbody.table__body
+										mixin table-tr()
+											tr.table__tr
+												td.table__td mm/dd/yy
+												td.table__td Name
+												td.table__td Field Name
+												td.table__td
+												td.table__td
+										+table-tr()
+										+table-tr()
+										+table-tr()
+		script(src="./js/libs.min.js")
+		script(src="./js/main.js")

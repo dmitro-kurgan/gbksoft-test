@@ -1,0 +1,61 @@
+// VARIABLES
+//FONTS
+$font: 'Roboto', Arial, sans-serif;
+
+//COLORS
+$licorice: #263649;
+$kashmir: #577594;
+$nepal: #98aec5;
+$botticelli: #90a4ae;
+$balihai: #7e9eb9;
+$charcoal: #272C30;
+$mantis: #70c756;
+$blue: #6698e9;
+$alice: #F1F6FF;
+$pink: #ed4e67;
+
+//DEVICE WIDTH
+$desctop-lg: "screen and (max-width: 1440px)";
+$desctop-md: "screen and (max-width: 1366px)";
+$desctop-sm: "screen and (max-width: 1220px)";
+
+//MIXINS
+
+//PSEUDO
+@mixin pseudo($display: block, $pos: absolute, $content: '') {
+    content: $content;
+    display: $display;
+    position: $pos;
+}
+
+//FONTS PROPERTIES
+@mixin font-props ($colour: false, $size: false, $weight: false, $ls: false, $lh: false) {
+	@if $colour { color: $colour; }
+    @if $size { font-size: $size; }
+    @if $weight { font-weight: $weight; }
+    @if $ls { letter-spacing: $ls; }
+    @if $lh { line-height: $lh; }
+}
+
+//PLACEHOLDER
+@mixin input-placeholder {
+    &.placeholder { @content; }
+    &:-moz-placeholder { @content; }
+    &::-moz-placeholder { @content; }
+    &:-ms-input-placeholder { @content; }
+    &::-webkit-input-placeholder { @content; }
+}
+
+//SCROLLBAR
+@mixin scrollbar {
+    &::-webkit-scrollbar {
+        width: 6px;
+        &-track {
+            background: #f2f6f9;
+        }
+        &-thumb {
+            background: #c4d1de;
+            border-radius: 3px;
+        }
+    }
+}
